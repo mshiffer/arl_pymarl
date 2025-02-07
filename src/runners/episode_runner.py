@@ -117,7 +117,12 @@ class EpisodeRunner:
         self.logger.log_stat(prefix + "return_std", np.std(returns), self.t_env)
         returns.clear()
 
+        # mshiffer: Add stats for individual battles won
         for k, v in stats.items():
+            print(k)
             if k != "n_episodes":
                 self.logger.log_stat(prefix + k + "_mean" , v/stats["n_episodes"], self.t_env)
+            if k == "battle_won" and prefix == "test_":
+                self.logger.log_stat(prefix + k, v, self.t_env)
+
         stats.clear()
